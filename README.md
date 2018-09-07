@@ -50,7 +50,26 @@ now when you call this function
 test1()
 ```
 
-the truth table of this function will be printed.
+the truth table of this function will be printed like this:
+a b c d | o
+0 0 0 0 | True  
+0 0 0 1 | True  
+0 0 1 0 | True  
+0 0 1 1 | True  
+0 1 0 0 | True  
+0 1 0 1 | True  
+0 1 1 0 | True  
+0 1 1 1 | True  
+1 0 0 0 | False  
+1 0 0 1 | False  
+1 0 1 0 | True  
+1 0 1 1 | False  
+1 1 0 0 | False  
+1 1 0 1 | False  
+1 1 1 0 | True  
+1 1 1 1 | True  
+True count:  11  
+False count:  5  
 
 the ammount of arguments to the logic_tester is arbitrary. it will automatically be determined. This doesn't mean any number of arguments is possible. this is due to the fact that the algorithm used is O(2^n) which is *SLOW*. so to not-overflow your terminal and keep execution time reasonable, be reasonable with the ammount of arguments.
 

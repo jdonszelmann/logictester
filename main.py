@@ -1,15 +1,8 @@
 
 from logictester import *
 
-
 @logic_tester
-def test1(p,q,r):
-	return (p and q) and r
-
-@logic_tester
-def test2(p,q,r):
-	return p and (q and r)
-
+def test1(a,b,c,d):
+	return Implies(a,b and c) or (c and Xor(a,d))
 
 test1()
-test2()
