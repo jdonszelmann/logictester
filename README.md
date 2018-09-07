@@ -10,8 +10,8 @@ to write a testable logic expression, one can use the following replacements for
 | not	(Not(a,b))	| 		¬				|
 | and	(And(a,b))	| 		^				|
 | or 	(Or(a,b))	| 		v 				|
-| Xor(a,b)			| 		(xor operator)	|
-| Xnor(a,b)			| 		<=>				|
+| Xor(a,b)			| 		⊕ 				|
+| Xnor(a,b)			| 		⇔				|
 | Implies(a,b)		| 		->				|
 
 To start testing a logical expression, one writes a function like this, with as many parameters as will be used in the expression (This is important):
