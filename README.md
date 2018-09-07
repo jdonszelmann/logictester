@@ -5,12 +5,14 @@ this little library can test your logic expressions.
 
 to write a testable logic expression, one can use the following replacements for the default binary connectives:
 
-not	(Not(a,b))			¬
-and	(And(a,b))			^
-or 	(Or(a,b))			v
-Xor(a,b)				(xor operator)
-Xnor(a,b)				<=>
-Implies(a,b)			->
+| python | bianry connective | 
+| --- | --- |
+| not	(Not(a,b))	| 		¬				|
+| and	(And(a,b))	| 		^				|
+| or 	(Or(a,b))	| 		v 				|
+| Xor(a,b)			| 		(xor operator)	|
+| Xnor(a,b)			| 		<=>				|
+| Implies(a,b)		| 		->				|
 
 To start testing a logical expression, one writes a function like this, with as many parameters as will be used in the expression (This is important):
 
