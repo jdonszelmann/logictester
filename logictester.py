@@ -58,3 +58,10 @@ def Xnor(a,b):
 
 def Not(a):
 	return a
+
+def Nand(a,b):
+	return not And(a,b)
+
+def Nor(a,b):
+	return not Or(a,b)
+
