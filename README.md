@@ -50,7 +50,7 @@ now when you call this function
 test1()
 ```
 
-the truth table of this function will be printed like this:
+the truth table of this function will be printed like this:    
 a b c d | o
 0 0 0 0 | True  
 0 0 0 1 | True  
