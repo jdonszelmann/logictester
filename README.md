@@ -1,5 +1,5 @@
 
-#Logic Tester
+# Logic Tester
 
 this little library can test your logic expressions.
 
@@ -49,6 +49,8 @@ test1()
 ```
 
 the truth table of this function will be printed.
+
+the ammount of arguments to the logic_tester is arbitrary. it will automatically be determined. This doesn't mean any number of arguments is possible. this is due to the fact that the algorithm used is O(2^n) which is *SLOW*. so to not-overflow your terminal and keep execution time reasonable, be reasonable with the ammount of arguments.
 
 ---
 
