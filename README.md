@@ -125,3 +125,18 @@ print(logic(test2).find_differences(test3))
 #will return an empty list ([])
 ```
 
+---
+
+logic tester now also includes autmatic simplification and generation of logic expressions. to use this feature just make a new expression function, use logic() on it and use the find_expression method. this method will be the simpelest possible disjunctive normal form of the expression. (bugesting needed, haven't proven the working but i'm yet to find a casse in which is doesnt work.)
+
+```python
+from logictester import *
+
+def test1(a,b,c,d):
+	return Implies(a,b and c) or d
+
+
+print(logic(test1).find_expression())
+#prints (a) v (¬a ^ ¬d) v (¬a ^ ¬b ^ ¬c ^ d)
+
+```
