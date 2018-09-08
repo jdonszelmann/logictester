@@ -48,7 +48,7 @@ def test_logic(func):
 
 	# print(" ".join(func.__code__.co_varnames) + " | o")
 	for combination in generate_combinations(func.__code__.co_argcount):
-		res.add_case(combination,func1(*combination))
+		res.add_case(combination,func(*combination))
 		
 
 	print("True count: ",true_counts)
