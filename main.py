@@ -10,9 +10,11 @@ def test3(a,b,c,d):
 	return Implies(a,b and c) or d
 
 def test4(a,b,c,d):
-	return a and (not b) and c and (not d)
+	return a or (not a and (not d)) or ((not a) and (not b) and (not c) and d) 
+
+# (a) v (¬a ^ ¬d) v (¬a ^ ¬b ^ ¬c ^ d)
 
 print(logic(test3).find_expression())
 
-# print(logic(test3))
-# print(logic(test4))
+print(logic(test3))
+print(logic(test4))
