@@ -29,7 +29,7 @@ it's important that the result of this expression will be returned. within the f
 
 now comes the magic:
 
-to generate a truth table of this expression, call the test_logic function with as the first and only argument the function:
+to generate a truth table of this expression, call the logic function with as the first and only argument the function:
 ```python
 test_logic(test1)
 ```
@@ -43,12 +43,7 @@ def test1(a,b,c,d):
 	return Implies(a,b and c) or (c and Xor(a,d))
 
 
-print(test_logic(test1))
-```
-
-now when you call this function 
-```python
-test1()
+print(logic(test1))
 ```
 
 the truth table of this function will be printed like this:    
@@ -76,29 +71,28 @@ the ammount of arguments to the logic_tester is arbitrary. it will automatically
 
 ---
 
-One can also test for equivalence of two functions with logictester. this can be done as follows: (the`@logic_tester` is optional)
+One can also test for equivalence of two functions with logictester. this can be done as follows: 
 
 ```python
 
-@logic_tester
+from logictester import *
+
 def test1(a,b,c,d):
 	return Implies(a,b and c) or (c and Xor(a,d))
 
-@logic_tester
 def test2(a,b,c,d):
 	return Implies(a,b and c) or (d and a)
 
-@logic_tester
 def test3(a,b,c,d):
 	return Implies(a,b and c) or d
 
 
 print(is_equivalent(test1,test2)) 	
-#will return [(1, 0, 0, 1), (1, 0, 1, 0), (1, 0, 1, 1), (1, 1, 0, 1)] 
+#will return False
 #since these are the input cases in which test1 and test2 differ
 
 print(is_equivalent(test1,test3))
-#will return an empty list (`[]`) to signify the two are equivalent
+#will return True
 ```
 
 
