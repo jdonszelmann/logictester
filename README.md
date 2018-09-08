@@ -92,6 +92,10 @@ print(is_equivalent(test1,test2))
 
 print(is_equivalent(test2,test3))
 #will return True
+
+print(logic(test2) == logic(test3))
+#works too. will also return True
+
 ```
 
 ---

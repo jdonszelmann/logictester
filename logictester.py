@@ -52,6 +52,9 @@ class logic:
 
 		return differences
 
+	def __eq__(self,other):
+		return self.find_differences(other) == []
+
 	def __repr__(self):
 		res = ""
 
@@ -62,6 +65,13 @@ class logic:
 		res += "True count: " + str(self.truecount) + "\n"
 		res += "False count: " + str(self.falsecount)
 		return res
+
+
+	def get_expression(func):
+		combinations = list(itertools.product([0, 1], repeat=func.__code__.co_argcount))
+
+		for i in combinations:
+			res = func(*i)
 
 
 def generate_combinations(n):
@@ -97,8 +107,3 @@ def Nor(a,b):
 
 
 
-def get_expression(func):
-		combinations = list(itertools.product([0, 1], repeat=func.__code__.co_argcount))
-
-		for i in combinations:
-			res = func(*i)
