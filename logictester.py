@@ -45,14 +45,10 @@ def test_logic(func):
 	res = logic_result()
 	res.set_varnames(*func.__code__.co_varnames)
 
-
-	# print(" ".join(func.__code__.co_varnames) + " | o")
 	for combination in generate_combinations(func.__code__.co_argcount):
 		res.add_case(combination,func(*combination))
 		
-
-	print("True count: ",true_counts)
-	print("False count: ",false_counts)
+	return res
 
 def is_equivalent(func1,func2):
 	if func1.__code__.co_argcount != func2.__code__.co_argcount:
