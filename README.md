@@ -31,7 +31,7 @@ now comes the magic:
 
 to generate a truth table of this expression, call the logic function with as the first and only argument the function:
 ```python
-test_logic(test1)
+logic(test1)
 ```
 
 so you get:
@@ -89,10 +89,35 @@ def test3(a,b,c,d):
 
 print(is_equivalent(test1,test2)) 	
 #will return False
-#since these are the input cases in which test1 and test2 differ
 
-print(is_equivalent(test1,test3))
+print(is_equivalent(test2,test3))
 #will return True
 ```
 
+---
+
+One can find the differences between two expressions (which is actually used to test for equivalence. if there are no differences the expressions are equivalent) by using the find_differences funtion on the logic object:
+
+
+```python
+
+from logictester import *
+
+def test1(a,b,c,d):
+	return Implies(a,b and c) or (c and Xor(a,d))
+
+def test2(a,b,c,d):
+	return Implies(a,b and c) or (d and a)
+
+def test3(a,b,c,d):
+	return Implies(a,b and c) or d
+
+
+print(logic(test1).find_differences(test2)) 	
+#will return [(1, 0, 0, 1), (1, 0, 1, 0), (1, 0, 1, 1), (1, 1, 0, 1)]
+#since these are the input cases in which test1 and test2 differ
+
+print(logic(test2).find_differences(test3))
+#will return an empty list ([])
+```
 
