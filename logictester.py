@@ -6,10 +6,10 @@ class logic_result:
 		self.varnames = ()
 		self.cases = []
 
-	def set_varnames(*args):
+	def set_varnames(self,*args):
 		self.varnames = args
 
-	def add_case(inputs,result):
+	def add_case(self,inputs,result):
 		self.cases.append((inputs,result))
 
 	@property
@@ -38,8 +38,8 @@ class logic_result:
 		res += "True count: " + str(self.truecount) + "\n"
 		res += "False count: " + str(self.falsecount)
 
-def generate_combinations():
-	yield from itertools.product([0, 1], repeat=func.__code__.co_argcount)
+def generate_combinations(n):
+	yield from itertools.product([0, 1], repeat=n)
 
 def test_logic(func):
 	res = logic_result()
@@ -47,7 +47,7 @@ def test_logic(func):
 
 
 	# print(" ".join(func.__code__.co_varnames) + " | o")
-	for combination in generate_combinations():
+	for combination in generate_combinations(func.__code__.co_argcount):
 		res.add_case(combination,func1(*combination))
 		
 
