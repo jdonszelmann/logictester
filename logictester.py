@@ -1,35 +1,60 @@
 import itertools, inspect
 
-def logic_tester(func):
-	def retfunc():
-		false_counts = 0
-		true_counts = 0
 
-		combinations = list(itertools.product([0, 1], repeat=func.__code__.co_argcount))
+class logic_result:
+	def __init__(self):
+		self.varnames = ()
+		self.cases = []
 
-		print(" ".join(func.__code__.co_varnames) + " | o")
-		for i in combinations:
-			res = func(*i)
-			if res:
-				true_counts+=1
-			else:
-				false_counts+=1
+	def set_varnames(*args):
+		self.varnames = args
 
-			print(" ".join((str(j) for j in i)) +  " | " + str(bool(res)))
+	def add_case(inputs,result):
+		self.cases.append((inputs,result))
 
-		print("True count: ",true_counts)
-		print("False count: ",false_counts)
+	@property
+	def truecount(self):
+		count = 0
+		for input,result in self.cases:
+			if result:
+				count+=1
+		return count
 
-	setattr(retfunc,"func",func)
-	return retfunc
+	@property
+	def falsecount(self):
+		count = 0
+		for input,result in self.cases:
+			if not result:
+				count+=1
+		return count
+
+	def __repr__(self):
+		res = ""
+
+		res += " ".join(func.__code__.co_varnames) + " | o\n"
+		for inputs,result in self.cases:
+			res += " ".join((str(i) for i in inputs)) +  " | " + str(bool(result)) + "\n"
+
+		res += "True count: " + str(self.truecount) + "\n"
+		res += "False count: " + str(self.falsecount)
+
+def generate_combinations():
+	yield from itertools.product([0, 1], repeat=func.__code__.co_argcount)
+
+def test_logic(func):
+	res = logic_result()
+	res.set_varnames(*func.__code__.co_varnames)
+
+
+	# print(" ".join(func.__code__.co_varnames) + " | o")
+	for combination in generate_combinations():
+		res.add_case(combination,func1(*combination))
+		
+
+	print("True count: ",true_counts)
+	print("False count: ",false_counts)
 
 def is_equivalent(func1,func2):
-	if hasattr(func1,"func"):
-		func1 = func1.func
-
-	if hasattr(func2,"func"):
-		func2 = func2.func
-
 	if func1.__code__.co_argcount != func2.__code__.co_argcount:
 		return ()
 	
@@ -65,3 +90,10 @@ def Nand(a,b):
 def Nor(a,b):
 	return not Or(a,b)
 
+
+
+def get_expression(func):
+		combinations = list(itertools.product([0, 1], repeat=func.__code__.co_argcount))
+
+		for i in combinations:
+			res = func(*i)

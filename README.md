@@ -29,9 +29,9 @@ it's important that the result of this expression will be returned. within the f
 
 now comes the magic:
 
-to generate a truth table of this expression, first put the following on the line before the function:
+to generate a truth table of this expression, call the test_logic function with as the first and only argument the function:
 ```python
-@logic_tester
+test_logic(test1)
 ```
 
 so you get:
@@ -39,10 +39,11 @@ so you get:
 ```python
 from logictester import *
 
-@logic_tester
 def test1(a,b,c,d):
 	return Implies(a,b and c) or (c and Xor(a,d))
 
+
+print(test_logic(test1))
 ```
 
 now when you call this function 
