@@ -67,19 +67,102 @@ class logic:
 		return res
 
 
-	def get_expression(func):
-		combinations = list(itertools.product([0, 1], repeat=func.__code__.co_argcount))
+	def find_expression(self):
+		def inverse_of_part(part):
+			for i in part:
+				if "¬" in i:
+					yield i.replace("¬","")
+				else:
+					yield "¬" + i
 
-		for i in combinations:
-			res = func(*i)
+		def sameatom(x,y):
+			if x.startswith("¬"):
+				x = x[1:]
+			if y.startswith("¬"):
+				y = y[1:]
+			return x == y
 
+		def differences(part1,part2):
+			if len(part1) != len(part2):
+				return []
+			res = []
+			index = 0
+			for x,y in zip(part1,part2):
+				if x != y and sameatom(x,y):
+					res.append(index)
+				index+=1
+			return res
+
+		class FoundError(Exception):
+			pass
+
+		class FoundAllError(Exception):
+			pass
+
+		#generate parts
+		parts = []
+		for inputs,result in self:
+			if result:
+				atoms = []
+				for index,i in enumerate(inputs):
+					if i:
+						atoms.append("¬" + self.varnames[index])
+					else:
+						atoms.append(self.varnames[index])
+				parts.append(atoms)
+
+
+		# #remove inverses
+		# for i in parts:
+		# 	inv = list(inverse_of_part(i))
+		# 	if inv in parts:
+		# 		parts.remove(i)
+		# 		parts.remove(inv)
+
+		# print(" v ".join("({})".format(" ^ ".join(i)) for i in parts))
+		
+		#simplify near-misses
+		try:
+			while True:
+				try:
+					for index1,i in enumerate(parts):
+						for index2,j in enumerate(parts):
+							d = differences(i,j)
+							if len(d) == 1:
+								del parts[index1][d[0]]
+								del parts[index2][d[0]]
+								raise FoundError
+					raise FoundAllError
+				except FoundError:
+					pass
+		except FoundAllError:
+			pass
+
+		# print(" v ".join("({})".format(" ^ ".join(i)) for i in parts))
+
+		# #remove inverses again
+		# for i in parts:
+		# 	inv = list(inverse_of_part(i))
+		# 	if inv in parts:
+		# 		parts.remove(i)
+		# 		parts.remove(inv)
+
+		oldparts = parts
+		parts = []
+		
+		#remove duplicates
+		for i in oldparts:
+			if i not in parts:
+				parts.append(i)
+
+		#display nice
+		return " v ".join("({})".format(" ^ ".join(i)) for i in parts)
 
 def generate_combinations(n):
 	yield from itertools.product([0, 1], repeat=n)
 
 def is_equivalent(func1,func2):
 	return logic(func1).find_differences(func2) == []
-
 	
 def Implies(a,b):
 	return not a or b
